@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <title>Overview</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Spending</title>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        <script>
+            google.charts.load('45', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(retrieveFromSheets);
+    
+            function retrieveFromSheets() {
+                processSheetName('healthcare_expenditure', 'SELECT I,J,K,L,M,N,O', totalHealthResponseHandler);
+                processSheetName('military_expenditure', 'SELECT I,J,K,L,M,N,O', totalMilitaryResponseHandler);
+                processSheetName('education_expenditure', 'SELECT I,J,K,L,M,N,O', totalEducationResponseHandler);
+                processSheetName('healthcare_expenditure', 'SELECT A,B,C,D,E,F,G', gdpHealthResponseHandler);
+                processSheetName('military_expenditure', 'SELECT A,B,C,D,E,F,G', gdpMilitaryResponseHandler);
+                processSheetName('education_expenditure', 'SELECT A,B,C,D,E,F,G', gdpEducationResponseHandler);
+                processSheetName('healthcare_expenditure', 'SELECT Q,R,S,T,U,V,W', percapitaHealthResponseHandler);
+                processSheetName('military_expenditure', 'SELECT Q,R,S,T,U,V,W', percaptiaMilitaryResponseHandler);
+                processSheetName('education_expenditure', 'SELECT Q,R,S,T,U,V,W', percapitaEducationResponseHandler);
+            } //retrieveFromSheets
+    
+            function processSheetName(sheetName, query, responseHandler) {
+                var queryString = encodeURIComponent(query);
+                var query = new google.visualization.Query(
+                    'https://docs.google.com/spreadsheets/d/1NyTWOd7qw41oapBC2NmiSaTwxvTFO_L6N0cqPoZtEJ4/gviz/tq?sheet='
+                            + sheetName + '&headers=1&tq=' + queryString); //Query
+                query.send(responseHandler);
+            } //processSheetName
+    
+            function totalHealthResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending in Billions ($)', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Total Government Spending on Healthcare",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("total_health_spending_div"));
+    
+                chart.draw(data, options);
+            } //totalHealthResponseHandler
+
+
+            function totalMilitaryResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending in Billions ($)', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Total Government Spending on Military",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("total_military_spending_div"));
+    
+                chart.draw(data, options);
+            } //totalHealthResponseHandler
+
+            function totalEducationResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending in Billions ($)', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Total Government Spending on Education",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("total_education_spending_div"));
+    
+                chart.draw(data, options);
+            } //totalEducationResponseHandler
+
+
+/* CHARTS AS % OF GDP*/
+
+            function gdpHealthResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending as % of GDP', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Healthcare as % of GDP",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("gdp_health_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpHealthResponseHandler
+
+
+            function gdpMilitaryResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending as % of GDP', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Military as % of GDP",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("gdp_military_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpHealthResponseHandler
+
+            function gdpEducationResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending as % of GDP', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Education as % of GDP",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("gdp_education_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpEducationResponseHandler
+
+
+
+
+/* CHARTS PER CAPITA*/
+            function percapitaHealthResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending Per Capita', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Healthcare Per Captia",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("percapita_health_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpHealthResponseHandler
+
+
+            function percaptiaMilitaryResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending Per Captia', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Military as Per Captia",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("percapita_military_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpHealthResponseHandler
+
+            function percapitaEducationResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Spending as Per Capita', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:10}, 
+                    slantedText: true, 
+                    slantedTextAngle: 45,},
+
+                    title: "Government Spending on Education Per Captia",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    width: 950,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("percapita_education_spending_div"));
+    
+                chart.draw(data, options);
+            } //gdpEducationResponseHandler
+
+
+
+    
+        </script>            
+
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="info">
+                <div id="info_text">
+                    <h1>
+                        <a href="home.html">Top Country Health, Education, and Military Spending : A Visual Analysis
+                            <span class="info_color"></span></a>
+                    </h1>
+                    <h2>
+                        DATS6401 - Visualization of Complex Data - GWU - Caroline Sklaver
+                    </h2>
+                </div><!-- info_text -->
+            </div><!-- info -->
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="home.html">Home</a></li>
+                    <li class="selected"><a href="overview.html">Data Overview</a></li>
+                    <li><a href="comparisons.html">Comparisons</a></li>
+                    <li><a href="trends.html">Trends</a></li>
+                </ul>
+            </div><!--menubar -->
+            
+        </div><!-- header -->
+
+        <div class = "col-md-6">
+            <form>
+                <div class="form-dropdown1">
+                <label for="top_selection">Spending Category</label>
+                <select class="select-one" id="Dropdown">
+                    <optgroup label="Total Spending">
+                        <option value="Healthcare" id="Healthcare">Healthcare Spending</option>
+                        <option value="Military" id="Military">Military Spending</option>
+                        <option value="Education" id="Education">Education Spending</option>
+                    </optgroup>
+                </select>
+                </div>
+            </form>
+        </div>
+
+         <div class="container">
+            <div id="total_health_spending_div" style="padding-left: 200px;"></div>
+            <div id="total_military_spending_div" style="padding-left: 200px;"></div>
+            <div id="total_education_spending_div" style="padding-left: 200px;"></div>
+            <div id="gdp_health_spending_div" style="padding-left: 200px;"></div>
+            <div id="gdp_military_spending_div" style="padding-left: 200px;"></div>
+            <div id="gdp_education_spending_div" style="padding-left: 200px;"></div>
+            <div id="percapita_health_spending_div" style="padding-left: 200px;"></div>
+            <div id="percapita_military_spending_div" style="padding-left: 200px;"></div>
+            <div id="percapita_education_spending_div" style="padding-left: 200px;"></div>
+        </div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="toggle.js"></script>
+
+</html>
+    
+    
+
