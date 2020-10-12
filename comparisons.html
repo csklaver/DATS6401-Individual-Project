@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <title>Overview</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Per Capita</title>
+        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        <script>
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(retrieveFromSheets);
+    
+            function retrieveFromSheets() {
+                processSheetName('compare_gdp', 'SELECT A,B,C,D', stackedResponseHandler);
+                processSheetName('compare_gdp', 'SELECT G,H,I,J', stackedPerCaptiaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,M', donutArgentinaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,N', donutAustraliaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,O', donutBrazilResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,P', donutFranceResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,Q', donutGermanyResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,R', donutIndonesiaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,S', donutItalyResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,T', donutJapanResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,U', donutKoreaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,V', donutMexicoResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,W', donutRussiaResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,X', donutSAResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,Y', donutTurkeyResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,Z', donutUKResponseHandler);
+                processSheetName('compare_gdp', 'SELECT L,AA', donutUSResponseHandler);
+            } //retrieveFromSheets 
+    
+            function processSheetName(sheetName, query, responseHandler) {
+                var queryString = encodeURIComponent(query);
+                var query = new google.visualization.Query(
+                    'https://docs.google.com/spreadsheets/d/1NyTWOd7qw41oapBC2NmiSaTwxvTFO_L6N0cqPoZtEJ4/gviz/tq?sheet='
+                            + sheetName + '&headers=1&tq=' + queryString); //Query
+                query.send(responseHandler);
+            } //processSheetName
+    
+            function stackedResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Percentage of GDP', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}, viewWindow: {min: 0, max: 28}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:12}},
+
+
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    isStacked: true
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("stacked_spending_div"));
+    
+                chart.draw(data, options);
+            } //stackedResponseHandler
+
+
+            function stackedPerCaptiaResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+                    vAxis: {title: 'Per Capita Spending ($)', textStyle:{color:'white'},
+                    titleTextStyle:{color: 'white'}, viewWindow: {min: 0, max: 16000}},
+
+                    hAxis: {title: 'Country',
+                    textStyle:{color: 'white', fontSize:12}},
+
+                    title: "Government Spending Per Capita in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+                    isStacked: true
+
+                };
+    
+                var chart = new google.visualization.ColumnChart(document.getElementById("stacked_percapita_spending_div"));
+    
+                chart.draw(data, options);
+            } //stackedPerCapitaResponseHandler
+
+            function donutArgentinaResponseHandler(response) {
+                // checkError(response);
+                var data = response.getDataTable();
+                // data.sort({column: 5, desc: true});
+    
+                var options = {
+
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+
+                    backgroundColor: 'transparent',
+
+                    legend: {textStyle: {color: 'white'}},
+
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+
+                };
+    
+                var chart = new google.visualization.PieChart(document.getElementById("donut_argentina_spending_div"));
+    
+                chart.draw(data, options);
+            }; //donutArgentinaResponseHandler
+
+            function donutAustraliaResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_australia_spending_div"));
+                chart.draw(data, options);
+            }; //donutAustraliaResponseHandler
+
+            function donutBrazilResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_brazil_spending_div"));
+                chart.draw(data, options);
+            }; //donutBrazilaResponseHandler
+
+            function donutFranceResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_france_spending_div"));
+                chart.draw(data, options);
+            }; //donutFranceResponseHandler
+
+            function donutGermanyResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_germany_spending_div"));
+                chart.draw(data, options);
+            }; //donutGermanyaResponseHandler
+
+            function donutIndonesiaResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_indonesia_spending_div"));
+                chart.draw(data, options);
+            }; //donutIndoneiaResponseHandler
+
+            function donutItalyResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_italy_spending_div"));
+                chart.draw(data, options);
+            }; //donutItalyResponseHandler
+
+            function donutJapanResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_japan_spending_div"));
+                chart.draw(data, options);
+            }; //donutJapanResponseHandler
+
+            function donutKoreaResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_korea_spending_div"));
+                chart.draw(data, options);
+            }; //donutKoreaResponseHandler
+
+
+            function donutMexicoResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_mexico_spending_div"));
+                chart.draw(data, options);
+            }; //donuMexicotResponseHandler
+
+            function donutRussiaResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_russia_spending_div"));
+                chart.draw(data, options);
+            }; //donutRussiaResponseHandler
+
+            function donutSAResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_sa_spending_div"));
+                chart.draw(data, options);
+            }; //donutSAResponseHandler
+
+            function donutTurkeyResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_turkey_spending_div"));
+                chart.draw(data, options);
+            }; //donutTurkeyResponseHandler
+
+            function donutUKResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_uk_spending_div"));
+                chart.draw(data, options);
+            }; //donutUKResponseHandler
+
+            function donutUSResponseHandler(response) {
+                var data = response.getDataTable();
+                var options = {
+                    title: "Government Spending as Percentage of GDP in 2017",
+                    titleTextStyle: { color: 'white', fontSize: 16 },
+                    backgroundColor: 'transparent',
+                    legend: {textStyle: {color: 'white'}},
+                    slices: {
+                        3: { color: '#22aa99' }
+                     },
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500
+                };
+                var chart = new google.visualization.PieChart(document.getElementById("donut_us_spending_div"));
+                chart.draw(data, options);
+            }; //donutUSResponseHandler
+
+
+
+
+
+    
+        </script>            
+
+</head>
+
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="info">
+                <div id="info_text">
+                    <h1>
+                        <a href="index.html">Top Country Health, Education, and Military Spending
+                            <span class="info_color"></span></a>
+                    </h1>
+                    <h2>
+                        DATS6401 - Visualization of Complex Data - GWU - Caroline Sklaver
+                    </h2>
+                </div><!-- info_text -->
+            </div><!-- info -->
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="overview.html">Data Overview</a></li>
+                    <li class="selected"><a href="comparisons.html">Comparisons</a></li>
+                    <li><a href="trends.html">Trends</a></li>
+                </ul>
+            </div><!--menubar -->
+            
+        </div><!-- header -->
+
+
+        <div class="div1">
+            <div id="stacked_spending_div" style="width: 675px; height: 400px;"></div>
+        </div>
+        <div class="div2">
+            <div id="stacked_percapita_spending_div" style="width: 675px; height: 400px;"></div>
+        </div>
+
+                
+        <div class="row2">
+            <div class = "col-sm-6">
+                <form>
+                    <div class="form-group">
+                    <label for="sel1">Country</label>
+                    <select class="form-control" id="Dropdown">
+                        <optgroup label="Country">
+                            <option value="Argentina" id="Argentina">Argentina</option>
+                            <option value="Australia" id="Australia">Australia</option>
+                            <option value="Brazil" id="Brazil">Brazil</option>
+                            <option value="France" id="France">France</option>
+                            <option value="Germany" id="Germany">Germany</option>
+                            <option value="Indonesia" id="Indonesia">Indonesia</option>
+                            <option value="Italy" id="Italy">Italy</option>
+                            <option value="Japan" id="Japan">Japan</option>
+                            <option value="Korea, Rep." id="Korea, Rep.">Korea, Rep.</option>
+                            <option value="Mexico" id="Mexico">Mexico</option>
+                            <option value="Russia" id="Russia">Russia</option>
+                            <option value="South Africa" id="South Africa">South Africa</option>
+                            <option value="Turkey" id="Turkey">Turkey</option>
+                            <option value="United Kingdom" id="United Kingdom">United Kingdom</option>
+                            <option value="United States" id="United States">United States</option>
+
+                        </optgroup>
+                    </select>
+                    </div>
+                </form>
+            </div>
+            <div id="donut_argentina_spending_div" style="float: left;"></div>
+            <div id="donut_australia_spending_div" style="float: left;"></div>
+            <div id="donut_brazil_spending_div" style="float: left;"></div>
+            <div id="donut_france_spending_div" style="float: left;"></div>
+            <div id="donut_germany_spending_div" style="float: left;"></div>
+            <div id="donut_indonesia_spending_div" style="float: left;"></div>
+            <div id="donut_italy_spending_div" style="float: left;"></div>
+            <div id="donut_japan_spending_div" style="float: left;"></div>
+            <div id="donut_korea_spending_div" style="float: left;"></div>
+            <div id="donut_mexico_spending_div" style="float: left;"></div>
+            <div id="donut_russia_spending_div" style="float: left;"></div>
+            <div id="donut_sa_spending_div" style="float: left;"></div>
+            <div id="donut_turkey_spending_div" style="float: left;"></div>
+            <div id="donut_us_spending_div" style="float: left;"></div>
+            <div id="donut_uk_spending_div" style="float: left;"></div>
+        </div>
+
+        <div class="sidebar">
+            <p style="color: white; font-size: 130%;">
+                In 2017, the US spent the most on both healthcare as as percentage of GDP as well as per capita.
+                Education spending as a percentage of GDP is quite similar across all countries, but varies more per capita.
+                Meanwhile, military spending accounts for the smallest percentage and per capita spending in every country.
+                2017 values are shown here as they are the most recent complete year of data avaiable.
+                <br>
+            </p>
+        </div>
+
+
+
+</body>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="compare_donut.js"></script>
+
+
+</html>
+    
+

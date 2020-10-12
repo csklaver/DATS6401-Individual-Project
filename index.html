@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout.css" type="text/css">
+    <title>Home</title>
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+            <div id="info">
+                <div id="info_text">
+                    <h1>
+                        <a href="index.html">Top Country Health, Education, and Military Spending : A Visual Analysis
+                            <span class="info_color"></span></a>
+                    </h1>
+                    <h2>
+                        DATS6401 - Visualization of Complex Data - GWU - Caroline Sklaver
+                    </h2>
+                </div><!-- info_text -->
+            </div><!-- info -->
+            <div id="menubar">
+                <ul id="menu">
+                    <li class='selected'><a href="index.html">Home</a></li>
+                    <li><a href="overview.html">Data Overview</a></li>
+                    <li><a href="comparisons.html">Comparisons</a></li>
+                    <li><a href="trends.html">Trends</a></li>
+                </ul>
+            </div><!--menubar -->
+
+
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="layout.css" type="text/css">
+            <title>Home</title>
+        
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <script src="https://www.gstatic.com/charts/loader.js"></script>
+                
+                <script>
+                    google.charts.load('current', {'packages':['corechart']});
+                    google.charts.setOnLoadCallback(retrieveFromSheets);
+            
+                    function retrieveFromSheets() {
+                        processSheetName('gdp', 'SELECT I,O', gdpResponseHandler);
+                    } //retrieveFromSheets
+            
+                    function processSheetName(sheetName, query, responseHandler) {
+                        var queryString = encodeURIComponent(query);
+                        var query = new google.visualization.Query(
+                            'https://docs.google.com/spreadsheets/d/1NyTWOd7qw41oapBC2NmiSaTwxvTFO_L6N0cqPoZtEJ4/gviz/tq?sheet='
+                                    + sheetName + '&headers=1&tq=' + queryString); //Query
+                        query.send(responseHandler);
+                    } //processSheetName
+            
+                    function gdpResponseHandler(response) {
+                        var data = response.getDataTable();
+            
+                        var options = {
+                        
+                            title: "Global Gross Domestic Product",
+                            titleTextStyle: { color: 'white', fontSize: 20},
+        
+                            backgroundColor: 'transparent',
+                            colorAxis: {minValue: 0, colors: ['lightgrey', 'orange']},
+
+                            // width: 1000,
+                            // height: 800
+        
+                        };
+            
+                        var chart = new google.visualization.GeoChart(document.getElementById("gdp_div"));
+            
+                        chart.draw(data, options);
+                    } //gdpResponseHandler
+                </script>
+
+        </div><!-- header -->
+
+        <div class='content' id="content">
+            <h1>Welcome to my Visualization of Complex Data Project I Home Page</h1>
+            <p>
+                This projet explores the healthcare, education, and military spending of some of the top countries in the world. This includes 15 of the G-20 countries from 2013 to 2018.
+                <br> Countries were chosen given that data was avaiable from at least 2015. The data was retrieved from the World Bank DataBank.
+                <br> Missing data on education spending was supplemented from the OECD and tradingeconomics.com. Other missing values were imputed with averages.
+                <br> Please explore the visuals in each section including an overview of spending in each sector, comparisons of each type of spending, and trends over time.
+                <br> A link to my GitHub page including all code and data is provided in the footer.
+            </p>
+        </div><!-- content -->
+
+
+    
+</div><!-- main -->
+
+<div id="geo_chart">
+    <h1 style="color:white;margin-top: 300px;">Global GDP Per Captia in 2018</h1>
+<div id="gdp_div" style="color:white;width:100%;height:900px;margin-top:7px;">
+</div>
+</div>
+
+
+<div id="content_footer">
+    <div id="footer">
+        Copyright &copy; 
+        <script>
+            var d = new Date();
+            document.write(d.getFullYear());
+        </script>
+         | <a href="http://github.com/csklaver">GitHub</a>
+         | <a href="https://data.worldbank.org/">World Bank DataBank</a>
+         | <a href="https://www.oecd.org/">OECD</a>
+         | <a href="https://tradingeconomics.com/">Trading Economics</a>
+    </div><!-- footer -->
+</div><!-- content_footer-->
+</body>
+</html>
+
